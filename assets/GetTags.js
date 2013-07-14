@@ -42,6 +42,7 @@ $(document).ready(function(){
 		'thread_title',
 		'page_number'
 	];
+
 	var forumQuest = [
 		'site_link', // TODO: make a javascript/python(via AJAX) to get site_link/thread_link/page_number
 		'thread_link',
@@ -65,47 +66,61 @@ $(document).ready(function(){
 	}
 
 	//draggable by UI Jquery lib!
-	$("#output_code").draggable();
+    $("#output_code").draggable();
+    $("#output_DataToDB").draggable();
 
 	//AJAX sending request to getHTML.py
 	$.ajax({
 		type: "POST",
 		url: "getHTML.py",
+        //parameters: "http://forum.wpcenter.com",
 		success: function(response)
 		{
 			$('body').append(response);
 		}
 	});
+    // TODO: Send the server, in this case python, a parameter that defines the HTML the will be returned.
+    // TODO: If the parameter is "next", the server should return the next HTML in line.
+    // TODO: If the parameter is an URL, the server should return the HTML of that url.
+
+
 
 	//init the output_code:
 	$("#quest").text(currentQuest[quest_counter]);
-	$('#selected_xpath_textbox').hide();
 
+    //event handle for update_DataToDB button
+    $('#output_DataToDB').on("click", "#update_DataToDB_button", function(){
+        $.each(DataToDB, function(key){
+            DataToDB[key] = $("#text_" + key).val();
+        });
+
+    });
 	//ENTER event handle, change the quest
 		$(document).keypress(function(e) {
-			if(e.which == 13) {
+			if(e.which == 13 && quest_counter < currentQuest.length) {
 				DataToDB[currentQuest[quest_counter]] = SelectedXpath;
+                $("#output_DataToDB").append(currentQuest[quest_counter] + ": <textarea rows='1' cols='60' id='text_" + currentQuest[quest_counter] + "'/></textarea><br><br>");
+                $('#text_' + currentQuest[quest_counter]).val(SelectedXpath);
+                if(quest_counter == currentQuest.length - 1){
+                    $("#output_DataToDB").append("<input type='button' id='update_DataToDB_button' value='Save!'>");
+                }
 				quest_counter++;
-	
-			            $("#quest").text(currentQuest[quest_counter]);
-			            // TODO: function tht return true for items in currentQuest that require textbox, instand of this:
-			            if(currentQuest[quest_counter-1] == 'htmlelement_that_wraps'){ //checks if its time to show the textbox
-			                $('#selected_xpath_textbox').val(DataToDB['htmlelement_that_wraps']).show();
-			                $("#quest").append("<br>Use ### for global ID")
-			            } else if(currentQuest[quest_counter-2] == 'htmlelement_that_wraps'){ //hide and update from the textbox
-			                DataToDB['htmlelement_that_wraps'] = $('#selected_xpath_textbox').val();
-		                    $('#selected_xpath_textbox').hide();
-			            }
-	
+                $("#quest").text(currentQuest[quest_counter]);
 			}
 	});
 
+    // TODO: Send the xpaths to the server in dictionary JSON form.
+
 	//scrolling the output_code div to my view
 	$(window).scroll(function () {
-		var set1 = $(document).scrollTop();
+        var set1 = $(document).scrollTop();
 		var p = $("#output_code").position();
 		if((set1 - p.top > 150)||(set1 - p.top < -700)){
 			$('#output_code').animate({top:set1 + "px"},{duration:500,queue:false});
 		}
+        var p2 = $("#output_DataToDB").position();
+        if((set1 - p2.top > 150)||(set1 - p2.top < -700)){
+            $('#output_DataToDB').animate({top:set1 + "px"},{duration:500,queue:false});
+        }
 	});
 });
