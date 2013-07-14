@@ -87,14 +87,15 @@ $(document).ready(function(){
 				DataToDB[currentQuest[quest_counter]] = SelectedXpath;
 				quest_counter++;
 	
-				$("#quest").text(currentQuest[quest_counter]);
-	
-				if(quest_counter == 2){
-					$('#selected_xpath_textbox').val(DataToDB[currentQuest[2]]).show();
-					$("#quest").append("<br>Use ### for global ID")
-				} else if(quest_counter == 3){
-					DataToDB[currentQuest[2]] = $('#selected_xpath_textbox').val().hide();
-				}
+			            $("#quest").text(currentQuest[quest_counter]);
+			            // TODO: function tht return true for items in currentQuest that require textbox, instand of this:
+			            if(currentQuest[quest_counter-1] == 'htmlelement_that_wraps'){ //checks if its time to show the textbox
+			                $('#selected_xpath_textbox').val(DataToDB['htmlelement_that_wraps']).show();
+			                $("#quest").append("<br>Use ### for global ID")
+			            } else if(currentQuest[quest_counter-2] == 'htmlelement_that_wraps'){ //hide and update from the textbox
+			                DataToDB['htmlelement_that_wraps'] = $('#selected_xpath_textbox').val();
+		                    $('#selected_xpath_textbox').hide();
+			            }
 	
 			}
 	});
