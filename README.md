@@ -1,8 +1,9 @@
 GetXPaths
 ======
 
-This project, written in jquery, is for web spiders/scraps or just for fun :) 
-The main idea is to get the source code of html page from server side via AJAX, 
-and then print the html on the jquery page.
-now the user has the ability to choose elements from the page and get an dictionary 
-from jquery of all the xpaths he had chosen.  
+This project, written in Javascript, is for web spiders/scraps or just for fun :)
+It's allows a user to select given HTML elements in a page, and returns the xpath of those elements.
+
+The interface that allows a user to select an element is clear and simple - when hovering over an element, it get surrounded by a red border, allowing to user to know which element is being selected.
+
+After selecting the needed elements, a dictionary with the xpaths is sent to the server, allowing a crawler to easily understand a page structure.
