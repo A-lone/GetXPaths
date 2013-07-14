@@ -81,16 +81,12 @@
             //AJAX sending request to getHTML.py
             $.ajax({
                 type: "POST",
-                url: "/getHTML.py",
+                url: "getHTML.py",
                 success: function(response)
                 {
                     $('body').append(response);
                 }
             });
-
-            function get_id(a, b) {
-                return b.replace(a, "");
-            }
 
             //ENTER event handle, change the quest
             $(document).keypress(function(e) {
@@ -101,7 +97,7 @@
                     //$("body").append(DataToDB[quest[quest_counter]]);
                     $("#quest").text(currentQuest[quest_counter]);
                     if(quest_counter == 4){
-                        var id_diff = get_id(DataToDB[currentQuest[3]], DataToDB[currentQuest[4]]);
+                        var id_diff = DataToDB[currentQuest[3]] + "||" + DataToDB[currentQuest[4]];
                         $('#output_view').append(id_diff);
                     }
                 }
