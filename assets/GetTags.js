@@ -89,7 +89,6 @@
 	            quest_counter++;
 	
 	            $("#quest").text(currentQuest[quest_counter]);
-
 	            // TODO: function tht return true for items in currentQuest that require textbox, instand of this:
 	            if(currentQuest[quest_counter-1] == 'htmlelement_that_wraps'){ //checks if its time to show the textbox
 	                $('#selected_xpath_textbox').val(DataToDB['htmlelement_that_wraps']).show();
