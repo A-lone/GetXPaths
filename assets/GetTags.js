@@ -1,6 +1,7 @@
         var SelectedXpath = "";
         var quest_counter = 0;
         var currentQuest = [];
+        var DataToDB = {};
 
         //Change the output_code to show the XPath
         function change_me(id){
@@ -28,12 +29,12 @@
         }
 
         $(document).ready(function(){
-            var DataToDB = {};
+
             var pageType = "thread";
             var threadQuest = [
                 'site_link',  // TODO: make a javascript/python(via AJAX) to get site_link/page_link/page_number
                 'page_link',
-                'htmlelement_that_wraps_a_post',  // Don't touch the first 3 items!
+                'htmlelement_that_wraps',  // Don't touch the first 3 items!
                 'forum_name',
                 'forum_version',
                 'post_title',
@@ -45,7 +46,7 @@
             var forumQuest = [
                 'site_link', // TODO: make a javascript/python(via AJAX) to get site_link/thread_link/page_number
                 'thread_link',
-                'htmlelement_that_wraps_a_thread',  // Don't touch the first 3 items!
+                'htmlelement_that_wraps',  // Don't touch the first 3 items!
                 'thread_titles',
                 'forum_name',
                 'thread_replies',
@@ -88,12 +89,13 @@
 	            quest_counter++;
 	
 	            $("#quest").text(currentQuest[quest_counter]);
-	
-	            if(quest_counter == 2){
-	                $('#selected_xpath_textbox').val(DataToDB[currentQuest[2]]).show();
+	            // TODO: function tht return true for items in currentQuest that require textbox, instand of this:
+	            if(currentQuest[quest_counter-1] == 'htmlelement_that_wraps'){ //checks if its time to show the textbox
+	                $('#selected_xpath_textbox').val(DataToDB['htmlelement_that_wraps']).show();
 	                $("#quest").append("<br>Use ### for global ID")
-	            } else if(quest_counter == 3){
-	                DataToDB[currentQuest[2]] = $('#selected_xpath_textbox').val().hide();
+	            } else if(currentQuest[quest_counter-2] == 'htmlelement_that_wraps'){ //hide and update from the textbox
+	                DataToDB['htmlelement_that_wraps'] = $('#selected_xpath_textbox').val();
+                    $('#selected_xpath_textbox').hide();
 	            }
 	
 	        }
