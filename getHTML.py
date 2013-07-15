@@ -14,7 +14,7 @@ except ValueError:
 
 if myjson != "":
     print 'Content-Type: application/json\n\n'
-    print json.dumps(result)    # or "json.dump(result, sys.stdout)"
+    print json.dumps(result)
 else:
     baseHTML = 'http://forums.macrumors.com/showthread.php?p=3850337'
 

@@ -76,7 +76,7 @@ $(document).ready(function(){
         //parameters: "http://forum.wpcenter.com",
 		success: function(response)
 		{
-			//$('body').append(response);
+			$('body').append(response);
 		}
 	});
     // TODO: Send the server, in this case python, a parameter that defines the HTML the will be returned.
