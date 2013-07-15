@@ -76,7 +76,7 @@ $(document).ready(function(){
         //parameters: "http://forum.wpcenter.com",
 		success: function(response)
 		{
-			$('body').append(response);
+			//$('body').append(response);
 		}
 	});
     // TODO: Send the server, in this case python, a parameter that defines the HTML the will be returned.
@@ -94,6 +94,15 @@ $(document).ready(function(){
             DataToDB[key] = $("#text_" + key).val();
         });
 
+        $.ajax({
+            url: "getHTML.py",
+            type: "POST",
+            data: JSON.stringify(DataToDB),
+            dataType: "json",
+            success: function(response) {
+                alert(response["success"]);
+            }
+        });
     });
 	//ENTER event handle, change the quest
 		$(document).keypress(function(e) {
