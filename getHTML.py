@@ -1,16 +1,13 @@
 #!\Python27\python
 
-import json, sys
 from bs4 import BeautifulSoup as Soup
-import urllib2, re
-from bottle import route, run, default_app, request, template
-from bottle import static_file
+import urllib2
+from bottle import route, run, default_app, request, template, static_file, SimpleTemplate
 result = {'success': 'true'}
-from bottle import SimpleTemplate
 application = default_app()
 SimpleTemplate.defaults["get_url"] = application.get_url
 
-# get url and post back the html, if not posted return the default
+# Get url and post back the html, if not posted return the default
 @application.post('/a')
 def build_page():
     if request.json is not None and request.json["newURL"] != "":
