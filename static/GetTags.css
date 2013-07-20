@@ -1,0 +1,21 @@
+#output_DataToDB {
+    width:500px;
+    height:300px;
+}
+.float_menus {
+	position:absolute;
+    background-color: rgba(21, 156, 255, 0.90);
+	width:400px;
+	height:200px;
+	border-radius: 2px;
+	margin: 20px 50px 50px 5px;
+	border: 2px solid;
+	color: #000000;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	text-align: center;
+    z-index: 10000;
+    overflow:auto;
+
+}
